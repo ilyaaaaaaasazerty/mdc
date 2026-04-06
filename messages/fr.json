@@ -1,0 +1,118 @@
+{
+  "brand": {
+    "name": "Athath Al Thiqa",
+    "tagline": "Où la forme rencontre la fonction"
+  },
+  "nav": {
+    "home": "Accueil",
+    "products": "Produits",
+    "collections": "Collections",
+    "rooms": "Pièces",
+    "about": "À propos",
+    "contact": "Contact",
+    "cart": "Panier",
+    "search": "Rechercher",
+    "admin": "Administration"
+  },
+  "hero": {
+    "title": "Un mobilier qui raconte votre histoire",
+    "subtitle": "Découvrez notre collection exclusive de mobilier contemporain, conçu avec soin pour transformer votre espace en une œuvre d'art",
+    "cta": "Explorer la collection",
+    "secondary_cta": "Voir le catalogue"
+  },
+  "sections": {
+    "featured": "Collections en vedette",
+    "featured_subtitle": "Des sélections soigneusement choisies pour votre goût raffiné",
+    "rooms": "Acheter par pièce",
+    "rooms_subtitle": "Découvrez des meubles conçus spécialement pour chaque espace de votre maison",
+    "bestsellers": "Meilleures ventes",
+    "bestsellers_subtitle": "Les produits préférés de nos clients",
+    "newsletter": "Restez informé",
+    "newsletter_subtitle": "Inscrivez-vous à notre newsletter pour recevoir les dernières offres et nouvelles collections",
+    "newsletter_placeholder": "Votre adresse e-mail",
+    "newsletter_button": "S'inscrire",
+    "story_title": "L'histoire d'Athath Al Thiqa",
+    "story_text": "Depuis notre création, nous nous efforçons d'offrir les plus belles pièces de mobilier alliant élégance et confort. Chaque pièce raconte une histoire d'artisanat et d'innovation."
+  },
+  "product": {
+    "add_to_cart": "Ajouter au panier",
+    "view_details": "Voir les détails",
+    "price": "Prix",
+    "currency": "DA",
+    "materials": "Matériaux",
+    "colors": "Couleurs",
+    "dimensions": "Dimensions",
+    "width": "Largeur",
+    "height": "Hauteur",
+    "depth": "Profondeur",
+    "in_stock": "En stock",
+    "out_of_stock": "Rupture de stock",
+    "related": "Produits similaires",
+    "view_3d": "Vue 3D",
+    "gallery": "Galerie",
+    "description": "Description",
+    "quantity": "Quantité",
+    "compare_price": "Était"
+  },
+  "rooms_page": {
+    "living": "Salon",
+    "living_desc": "Mobilier moderne et élégant pour un salon confortable",
+    "bedroom": "Chambre à coucher",
+    "bedroom_desc": "Sommeil paisible avec des lits et meubles luxueux",
+    "dining": "Salle à manger",
+    "dining_desc": "Tables et chaises pour les meilleurs moments en famille",
+    "office": "Bureau",
+    "office_desc": "Un espace de travail élégant et confortable"
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide",
+    "total": "Total",
+    "checkout": "Passer la commande",
+    "remove": "Supprimer",
+    "continue": "Continuer les achats",
+    "subtotal": "Sous-total",
+    "shipping": "Livraison",
+    "free_shipping": "Gratuite"
+  },
+  "footer": {
+    "description": "Athath Al Thiqa - Votre première destination pour le mobilier luxueux et contemporain en Algérie",
+    "quick_links": "Liens rapides",
+    "contact_info": "Informations de contact",
+    "follow_us": "Suivez-nous",
+    "rights": "Tous droits réservés",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "address": "Adresse"
+  },
+  "admin": {
+    "title": "Tableau de bord",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "products": "Produits",
+    "categories": "Catégories",
+    "orders": "Commandes",
+    "add_product": "Ajouter un produit",
+    "edit_product": "Modifier le produit",
+    "delete_product": "Supprimer le produit",
+    "upload_image": "Télécharger une image",
+    "upload_model": "Télécharger un modèle 3D",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ?",
+    "dashboard": "Accueil",
+    "total_products": "Total des produits",
+    "total_orders": "Total des commandes",
+    "revenue": "Revenus"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "back": "Retour",
+    "see_all": "Voir tout",
+    "cm": "cm"
+  }
+}
