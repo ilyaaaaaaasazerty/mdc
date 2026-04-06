@@ -114,12 +114,7 @@ export default function HomePage() {
          { opacity: 1, x: 0, duration: 0.8, stagger: 0.2, ease: "power3.out", scrollTrigger: { trigger: ".scene-3", start: "top 50%" } }
       );
 
-      // --- 4. STORY (Dark to Light Transition) ---
-      gsap.to(".scene-4", {
-         backgroundColor: "#FFFFFF",
-         color: "#0B0B0B",
-         scrollTrigger: { trigger: ".scene-4", start: "top 60%", end: "top 20%", scrub: true }
-      });
+      // --- 4. STORY (Subtle Background Emphasis) ---
       gsap.fromTo(".s4-word",
          { opacity: 0.1, y: 10 }, { opacity: 1, y: 0, duration: 1, stagger: 0.05, ease: "power2.out", scrollTrigger: { trigger: ".scene-4", start: "top 40%" } }
       );
@@ -151,15 +146,15 @@ export default function HomePage() {
 
    }, { scope: mainRef, dependencies: [locale, categories, heroSettings] });
 
-   const brandColors = { main: "#0B0B0B", accent: "#FF6A00", white: "#FFFFFF" };
+   const brandColors = { accent: "var(--color-accent)", accentHover: "var(--color-accent-hover)" };
 
    return (
-      <main ref={mainRef} className="relative font-sans overflow-x-hidden" dir={isArabic ? 'rtl' : 'ltr'} style={{ backgroundColor: brandColors.main, color: brandColors.white }}>
+      <main ref={mainRef} className="relative font-sans overflow-x-hidden bg-bg-primary text-text-primary" dir={isArabic ? 'rtl' : 'ltr'}>
 
          {/* ==================================================== */}
          {/* 1. HERO — Auto-play, no scroll hijack                */}
          {/* ==================================================== */}
-         <div className="hero-section relative w-full h-[100svh] overflow-hidden bg-black">
+         <div className="hero-section relative w-full h-[100svh] overflow-hidden">
 
             {/* Background image */}
             <div className="hero-inner absolute inset-0 w-full h-full will-change-transform">
@@ -169,7 +164,7 @@ export default function HomePage() {
 
             {/* Content — centered */}
             <div className="hero-content relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
-               <span className="font-mono tracking-[0.4em] text-[#FF6A00]/70 text-xs uppercase mb-6">
+               <span className="font-mono tracking-[0.4em] text-accent/70 text-xs uppercase mb-6">
                   Athath Al Thiqa
                </span>
                <h1 className="text-[10vw] md:text-[7vw] font-black tracking-tighter leading-none uppercase text-white drop-shadow-2xl" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
@@ -183,15 +178,15 @@ export default function HomePage() {
          {/* ---------------------------------------------------- */}
          {/* 2. CATEGORIES: ALTERNATING VERTICAL SEQUENCE */}
          {/* ---------------------------------------------------- */}
-         <section className="relative w-full bg-[#0B0B0B] pb-32 border-t border-white/5 pt-12">
+         <section className="relative w-full bg-bg-secondary pb-32 border-t border-border pt-12">
 
             {/* Cinematic Category Intro Text */}
             <div className="cat-header-trigger relative w-full container mx-auto px-6 mb-16 flex justify-center overflow-hidden">
-               <h2 className="cat-title-text text-[15vw] md:text-[12vw] font-black uppercase text-white/5 tracking-tighter leading-none will-change-transform opacity-0" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
+               <h2 className="cat-title-text text-[15vw] md:text-[12vw] font-black uppercase text-text-secondary/10 tracking-tighter leading-none will-change-transform opacity-0" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
                   {isArabic ? "المجموعات" : "CATÉGORIES"}
                </h2>
                <div className="cat-title-text-front absolute inset-0 flex items-center justify-center pointer-events-none opacity-0">
-                  <h2 className="text-[15vw] md:text-[12vw] font-black uppercase text-transparent stroke-text tracking-tighter leading-none" style={{ WebkitTextStroke: "1px rgba(255,106,0,0.4)", fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
+                  <h2 className="text-[15vw] md:text-[12vw] font-black uppercase text-transparent stroke-text tracking-tighter leading-none" style={{ WebkitTextStroke: "1px var(--color-accent)", fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
                      {isArabic ? "المجموعات" : "CATÉGORIES"}
                   </h2>
                </div>
@@ -204,14 +199,14 @@ export default function HomePage() {
                      <div className={`container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${isEven ? "" : "lg:mt-0"}`}>
 
                         <div className={`cat-img-block relative w-full aspect-square md:aspect-video lg:aspect-square flex justify-center items-center ${isEven ? "lg:order-1" : "lg:order-2"}`}>
-                           <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6A00]/5 to-transparent rounded-[40px] blur-3xl z-0"></div>
+                           <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 to-transparent rounded-[40px] blur-3xl z-0"></div>
 
                            {/* Dynamic Images */}
-                           <div className="relative z-10 w-4/5 aspect-square drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] will-change-transform">
+                           <div className="relative z-10 w-4/5 aspect-square drop-shadow-2xl will-change-transform">
                               <Image src={cat.image?.includes('http') || cat.image?.includes('/uploads') ? cat.image : (cat.img || '/images/products/sofa.png')} alt={cat.title} fill className="object-contain" />
                            </div>
 
-                           <div className="absolute top-10 right-10 text-[10rem] font-black text-white/[0.02] pointer-events-none">
+                           <div className="absolute top-10 right-10 text-[10rem] font-black text-text-secondary/[0.05] pointer-events-none">
                               0{index + 1}
                            </div>
                         </div>
@@ -220,13 +215,13 @@ export default function HomePage() {
                            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tight" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
                               {(isArabic && cat.titleAr) ? cat.titleAr : cat.title}
                            </h2>
-                           <p className="text-white/50 text-xl font-light leading-relaxed max-w-lg">
+                           <p className="text-text-secondary/50 text-xl font-light leading-relaxed max-w-lg">
                               {(isArabic && cat.descriptionAr) ? cat.descriptionAr : (cat.description || cat.desc)}
                            </p>
                            <div className="pt-8">
                               <button className="group flex items-center gap-4 text-sm tracking-widest font-bold uppercase transition-all duration-300">
-                                 <span className="group-hover:text-[#FF6A00] transition-colors">{isArabic ? "تصفح الفئة" : "View Range"}</span>
-                                 <span className={`h-[1px] bg-white group-hover:bg-[#FF6A00] transition-all ${isEven ? (rtlDir === 1 ? "w-8 group-hover:w-16 ml-0" : "w-8 group-hover:w-16 mr-0") : "w-16 group-hover:w-8"}`}></span>
+                                 <span className="group-hover:text-accent transition-colors">{isArabic ? "تصفح الفئة" : "View Range"}</span>
+                                 <span className={`h-[1px] bg-text-primary group-hover:bg-accent transition-all ${isEven ? (rtlDir === 1 ? "w-8 group-hover:w-16 ml-0" : "w-8 group-hover:w-16 mr-0") : "w-16 group-hover:w-8"}`}></span>
                               </button>
                            </div>
                         </div>
@@ -238,10 +233,10 @@ export default function HomePage() {
          </section>
 
          {/* 3. SIGNATURE PRODUCT (Showpiece) */}
-         <section className="scene-3 relative w-full min-h-[100svh] bg-[#0B0B0B] py-32 border-t border-white/5 flex items-center">
+         <section className="scene-3 relative w-full min-h-[100svh] bg-bg-secondary py-32 border-t border-border flex items-center">
             <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                <div className="relative perspective-[1500px]">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6A00]/5 to-transparent rounded-3xl blur-3xl"></div>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 to-transparent rounded-3xl blur-3xl"></div>
                   <Image src="/images/products/table.png" alt="Signature Details" width={800} height={600} className="s3-render relative w-full h-auto drop-shadow-2xl will-change-transform z-10" />
                </div>
                <div className="flex flex-col justify-center">
@@ -250,14 +245,14 @@ export default function HomePage() {
                   </h2>
                   <div className="space-y-12">
                      <div className="s3-spec relative">
-                        <div className="absolute top-0 w-12 h-[2px] bg-[#FF6A00]"></div>
+                        <div className="absolute top-0 w-12 h-[2px] bg-accent"></div>
                         <h3 className="text-2xl font-bold mt-4 mb-2">{isArabic ? "خشب الجوز الصلب" : "Solid Oak Frame"}</h3>
-                        <p className="text-white/50 text-lg">Foundation built to outlast trends.</p>
+                        <p className="text-text-secondary/50 text-lg">Foundation built to outlast trends.</p>
                      </div>
                      <div className="s3-spec relative">
-                        <div className="absolute top-0 w-12 h-[2px] bg-[#FF6A00]"></div>
+                        <div className="absolute top-0 w-12 h-[2px] bg-accent"></div>
                         <h3 className="text-2xl font-bold mt-4 mb-2">{isArabic ? "جلد إيطالي" : "Italian Aniline Leather"}</h3>
-                        <p className="text-white/50 text-lg">Porous, breathable, and gains patina over time.</p>
+                        <p className="text-text-secondary/50 text-lg">Porous, breathable, and gains patina over time.</p>
                      </div>
                   </div>
                </div>
@@ -265,7 +260,7 @@ export default function HomePage() {
          </section>
 
          {/* 4. STORY (Dark -> Light) */}
-         <section className="scene-4 relative w-full min-h-[100svh] py-32 flex flex-col items-center justify-center transition-colors duration-0 border-t border-white/5">
+         <section className="scene-4 relative w-full min-h-[100svh] py-32 flex flex-col items-center justify-center transition-colors duration-0 border-t border-border">
             <div className="container mx-auto px-6 max-w-5xl text-center">
                <h2 className="text-4xl md:text-7xl font-bold leading-snug tracking-tighter" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
                   {(isArabic ? "من المواد الخام إلى مساحات المعيشة المصقولة." : "From raw material to refined living.").split(" ").map((word, i) => (
@@ -279,24 +274,24 @@ export default function HomePage() {
          </section>
 
          {/* 5. CATALOGUE PREVIEW (Fast Grid) */}
-         <section className="scene-5 relative w-full min-h-[100svh] bg-[#0B0B0B] py-32 text-white border-t border-white/5 z-20">
+         <section className="scene-5 relative w-full min-h-[100svh] bg-bg-secondary py-32 text-text-primary border-t border-border z-20">
             <div className="container mx-auto px-6">
                <div className="flex justify-between items-end mb-16">
                   <h2 className="text-3xl md:text-5xl font-black uppercase tracking-wide">{isArabic ? "التشكيلة" : "The Collection"}</h2>
-                  <button className="text-sm tracking-widest font-bold uppercase pb-1 border-b border-white hover:border-[#FF6A00] hover:text-[#FF6A00] transition-colors">{isArabic ? "عرض الكل" : "View All"}</button>
+                  <button className="text-sm tracking-widest font-bold uppercase pb-1 border-b border-text-primary hover:border-accent hover:text-accent transition-colors">{isArabic ? "عرض الكل" : "View All"}</button>
                </div>
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[1, 2, 3, 4, 5, 6].map((item) => (
-                     <div key={item} className="s5-item group relative aspect-[4/5] bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden flex flex-col justify-between p-6 cursor-pointer hover:border-[#FF6A00]/50 transition-colors duration-300">
+                     <div key={item} className="s5-item group relative aspect-[4/5] bg-bg-elevated/50 border border-border rounded-2xl overflow-hidden flex flex-col justify-between p-6 cursor-pointer hover:border-accent/50 transition-colors duration-300">
                         <div className="relative w-full h-[60%] flex items-center justify-center">
                            <Image src="/images/products/sofa.png" alt="Prod" width={400} height={300} className="w-[80%] h-auto object-contain group-hover:scale-110 transition-transform duration-700 ease-out" />
                         </div>
                         <div className="flex justify-between items-end">
                            <div>
                               <h3 className="text-xl font-bold uppercase tracking-wider mb-1">Armchair 0{item}</h3>
-                              <p className="text-white/40 text-sm">Walnut / Leather</p>
+                              <p className="text-text-secondary/40 text-sm">Walnut / Leather</p>
                            </div>
-                           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0 text-[#FF6A00] font-bold">
+                           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0 text-accent font-bold">
                               $1,200
                            </div>
                         </div>
@@ -307,50 +302,50 @@ export default function HomePage() {
          </section>
 
          {/* 6. MATERIAL STRIP */}
-         <section className="scene-6 relative w-full h-[60vh] bg-[#0B0B0B] flex overflow-hidden border-t border-white/5">
+         <section className="scene-6 relative w-full h-[60vh] bg-bg-secondary flex overflow-hidden border-t border-border">
             <a href={`/${locale}/shop?material=solid-oak`} className="w-1/3 relative overflow-hidden group cursor-pointer">
                <Image src="https://images.unsplash.com/photo-1598425237654-4c05bb1528be?q=80&w=800" fill alt="Wood" className="s6-mat-img object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-               <div className="s6-mat-text absolute bottom-10 left-10 text-2xl font-bold uppercase tracking-widest text-white z-10 group-hover:text-[#FF6A00] transition-colors bg-black/40 px-4 py-2 backdrop-blur-sm border border-white/10">Solid Oak</div>
+               <div className="s6-mat-text absolute bottom-10 left-10 text-2xl font-bold uppercase tracking-widest text-text-primary z-10 group-hover:text-accent transition-colors glass">Solid Oak</div>
             </a>
-            <a href={`/${locale}/shop?material=travertine`} className="w-1/3 relative overflow-hidden group border-x border-black cursor-pointer">
+            <a href={`/${locale}/shop?material=travertine`} className="w-1/3 relative overflow-hidden group border-x border-border cursor-pointer">
                <Image src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?q=80&w=800" fill alt="Marble" className="s6-mat-img object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-               <div className="s6-mat-text absolute bottom-10 left-10 text-2xl font-bold uppercase tracking-widest text-white z-10 group-hover:text-[#FF6A00] transition-colors bg-black/40 px-4 py-2 backdrop-blur-sm border border-white/10">Travertine</div>
+               <div className="s6-mat-text absolute bottom-10 left-10 text-2xl font-bold uppercase tracking-widest text-text-primary z-10 group-hover:text-accent transition-colors glass">Travertine</div>
             </a>
             <a href={`/${locale}/shop?material=leather`} className="w-1/3 relative overflow-hidden group cursor-pointer">
                <Image src="https://images.unsplash.com/photo-1512411030026-b847321e25e9?q=80&w=800" fill alt="Leather" className="s6-mat-img object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-               <div className="s6-mat-text absolute bottom-10 left-10 text-2xl font-bold uppercase tracking-widest text-white z-10 group-hover:text-[#FF6A00] transition-colors bg-black/40 px-4 py-2 backdrop-blur-sm border border-white/10">Aniline Leather</div>
+               <div className="s6-mat-text absolute bottom-10 left-10 text-2xl font-bold uppercase tracking-widest text-text-primary z-10 group-hover:text-accent transition-colors glass">Aniline Leather</div>
             </a>
          </section>
 
          {/* 7. SOCIAL PROOF / STATS */}
-         <section className="scene-7 relative w-full min-h-[60vh] bg-[#0B0B0B] flex flex-col items-center justify-center text-center py-20 border-t border-white/5">
-            <div className="s7-wrap container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16 divide-y md:divide-y-0 md:divide-x divide-white/10 rtl:divide-x-reverse">
+         <section className="scene-7 relative w-full min-h-[60vh] bg-bg-secondary flex flex-col items-center justify-center text-center py-20 border-t border-border">
+            <div className="s7-wrap container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16 divide-y md:divide-y-0 md:divide-x divide-border rtl:divide-x-reverse">
                <div className="flex flex-col items-center pt-8 md:pt-0">
                   <div className="text-6xl md:text-8xl font-black mb-4"><span className="s7-stat" data-target="4">0</span>M+</div>
-                  <div className="text-white/40 tracking-widest uppercase font-bold text-sm">Customers Worldwide</div>
+                  <div className="text-text-secondary/40 tracking-widest uppercase font-bold text-sm">Customers Worldwide</div>
                </div>
                <div className="flex flex-col items-center pt-8 md:pt-0">
                   <div className="text-6xl md:text-8xl font-black mb-4"><span className="s7-stat" data-target="12">0</span></div>
-                  <div className="text-white/40 tracking-widest uppercase font-bold text-sm">Global Showrooms</div>
+                  <div className="text-text-secondary/40 tracking-widest uppercase font-bold text-sm">Global Showrooms</div>
                </div>
                <div className="flex flex-col items-center pt-8 md:pt-0">
                   <div className="text-6xl md:text-8xl font-black mb-4"><span className="s7-stat" data-target="15">0</span></div>
-                  <div className="text-white/40 tracking-widest uppercase font-bold text-sm">Years of Excellence</div>
+                  <div className="text-text-secondary/40 tracking-widest uppercase font-bold text-sm">Years of Excellence</div>
                </div>
             </div>
          </section>
 
          {/* 8. FINAL CTA */}
-         <section className="scene-8 relative w-full min-h-[70vh] bg-[#0B0B0B] flex items-center justify-center border-t border-white/5">
+         <section className="scene-8 relative w-full min-h-[70vh] bg-bg-secondary flex items-center justify-center border-t border-border">
             <div className="s8-cta flex flex-col items-center text-center">
                <h2 className="text-5xl md:text-7xl font-black mb-8 uppercase tracking-tight" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
                   {isArabic ? "صمم مساحتك" : "Design Your Space"}
                </h2>
                <div className="flex flex-col sm:flex-row gap-6">
-                  <button className="px-12 py-5 bg-[#FF6A00] text-white font-bold uppercase tracking-widest text-sm shadow-[0_0_20px_rgba(255,106,0,0.4)] hover:shadow-[0_0_40px_rgba(255,106,0,0.6)] hover:bg-[#e65f00] transition-all duration-300">
+                  <button className="px-12 py-5 bg-accent text-text-primary font-bold uppercase tracking-widest text-sm shadow-lg hover:shadow-xl hover:bg-accent-hover transition-all duration-300">
                      Shop Now
                   </button>
-                  <button className="px-12 py-5 bg-transparent border border-white/20 text-white font-bold uppercase tracking-widest text-sm hover:border-white transition-colors">
+                  <button className="px-12 py-5 bg-transparent border border-border text-text-primary font-bold uppercase tracking-widest text-sm hover:border-text-primary transition-colors">
                      View Catalogue PDF
                   </button>
                </div>

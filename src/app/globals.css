@@ -84,3 +84,29 @@
     color: white;
   }
 }
+
+/* ================================================ */
+/* LIGHT MODE OVERRIDES                             */
+/* ================================================ */
+[data-theme="light"] {
+  --background: #F8F7F4;
+  --foreground: #1A1A1A;
+  --color-bg-primary: #F8F7F4;
+  --color-bg-secondary: #EFEDE8;
+  --color-bg-elevated: #FFFFFF;
+  --color-surface: #E8E6E1;
+  --color-border: #D5D3CE;
+  --color-border-accent: #C0BDB6;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #5A5A56;
+  --color-text-muted: #8A8A84;
+  --color-accent: #E8531E;
+  --color-accent-hover: #D44A17;
+  --color-accent-subtle: rgba(232, 83, 30, 0.08);
+  --color-accent-glow: rgba(232, 83, 30, 0.12);
+}
+
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 0, 0, 0.06);
+}

@@ -6,6 +6,7 @@ import LenisProvider from "@/components/providers/LenisProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/layout/CartDrawer";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -67,12 +68,14 @@ export default function LocaleLayout({
     <html lang={locale} dir={direction} className={`${fontVars} antialiased`}>
       <body className={`${fontFamily} min-h-screen bg-bg-primary text-text-primary`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <LenisProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <CartDrawer />
-          </LenisProvider>
+          <ThemeProvider>
+            <LenisProvider>
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <CartDrawer />
+            </LenisProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

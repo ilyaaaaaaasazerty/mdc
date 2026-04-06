@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingBag, Search } from "lucide-react";
+import { Menu, X, ShoppingBag, Search, Sun, Moon } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
+import { useTheme } from "@/context/ThemeContext";
 import Image from "next/image";
 
 export default function Navbar() {
@@ -15,6 +16,7 @@ export default function Navbar() {
   const totalItems = useCartStore((s) => s.getTotalItems());
   const openCart = useCartStore((s) => s.openCart);
   const otherLocale = locale === "ar" ? "fr" : "ar";
+  const { theme, toggleTheme } = useTheme();
 
   const links = [
     { href: "/", label: t("home") },
@@ -48,7 +50,24 @@ export default function Navbar() {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="relative p-2 text-text-secondary hover:text-accent transition-colors duration-300 overflow-hidden"
+          >
+            <motion.div
+              key={theme}
+              initial={{ y: -20, opacity: 0, rotate: -90 }}
+              animate={{ y: 0, opacity: 1, rotate: 0 }}
+              exit={{ y: 20, opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.3 }}
+            >
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            </motion.div>
+          </button>
+
           {/* Language Switcher */}
           <a
             href={`/${otherLocale}`}
@@ -103,6 +122,15 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+
+              {/* Mobile Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-3 py-2 text-text-secondary hover:text-accent transition-colors text-base"
+              >
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+                <span>{theme === "dark" ? (locale === "ar" ? "الوضع الفاتح" : "Light Mode") : (locale === "ar" ? "الوضع الداكن" : "Dark Mode")}</span>
+              </button>
             </div>
           </motion.div>
         )}
