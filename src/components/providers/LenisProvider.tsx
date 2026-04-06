@@ -8,8 +8,8 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
     <ReactLenis
       root
       options={{
-        lerp: 0.1,
-        duration: 1.4,
+        lerp: 0.15,
+        duration: 0.8,
         smoothWheel: true,
       }}
     >

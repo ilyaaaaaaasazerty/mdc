@@ -41,8 +41,8 @@ export default function HomePage() {
             if (heroSnap.exists()) {
                setHeroSettings(heroSnap.data());
             }
-         } catch (error) {
-            console.error("Firebase fetch bypassed safely for preview mode.");
+         } catch (error: any) {
+            console.warn("Firebase:", error?.message || error);
          }
       }
       fetchGlobalState();
@@ -52,30 +52,24 @@ export default function HomePage() {
       ScrollTrigger.getAll().forEach(t => t.kill());
 
       // ==========================================
-      // 1. THE FADE CURTAIN & HERO SEQUENCE
+      // 1. HERO — Pinned scrubbed fade (fully reversible)
       // ==========================================
+      gsap.set(".hero-inner", { opacity: 1, scale: 1 });
+      gsap.set(".hero-content", { opacity: 1, y: 0 });
+
       const heroTl = gsap.timeline({
          scrollTrigger: {
-            trigger: ".hero-pin-wrapper",
+            trigger: ".hero-section",
             start: "top top",
-            end: "+=2000px",  // Complete scroll duration
+            end: "+=500px",
             pin: true,
-            scrub: true,
+            scrub: 0.6,
          }
       });
 
-      // Phase 1: Curtains slowly slide apart slightly AND dramatically fade out to reveal the hero
-      heroTl.to(".curtain-left", { xPercent: -30, duration: 1, ease: "power2.inOut" }, 0)
-         .to(".curtain-right", { xPercent: 30, duration: 1, ease: "power2.inOut" }, 0)
-         .to(".curtain-door", { opacity: 0, duration: 1.2, ease: "power2.out" }, 0)
-         .to(".hero-inner", { scale: 1, filter: "blur(0px)", opacity: 1, duration: 1, ease: "power2.out" }, 0)
-         .to(".scroll-indicator", { opacity: 0, duration: 0.2 }, 0)
-
-         // Phase 2: Hold the beautifully revealed Image and Text
-         .to(".hero-inner", { duration: 0.4 }, 0.4)
-
-         // Phase 3: The hero fades out completely to enter the normal website
-         .to(".hero-inner", { opacity: 0, scale: 1.05, duration: 0.4, ease: "none" }, 0.8);
+      heroTl
+         .to(".hero-content", { opacity: 0, y: -60, duration: 0.5, ease: "none" }, 0)
+         .to(".hero-inner", { opacity: 0, scale: 1.08, duration: 0.8, ease: "none" }, 0.2);
 
 
       // ==========================================
@@ -160,44 +154,28 @@ export default function HomePage() {
    const brandColors = { main: "#0B0B0B", accent: "#FF6A00", white: "#FFFFFF" };
 
    return (
-      <main ref={mainRef} className="relative font-sans overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'} style={{ backgroundColor: brandColors.main, color: brandColors.white }}>
+      <main ref={mainRef} className="relative font-sans overflow-x-hidden" dir={isArabic ? 'rtl' : 'ltr'} style={{ backgroundColor: brandColors.main, color: brandColors.white }}>
 
          {/* ==================================================== */}
-         {/* 1. THE FADE-REVEAL HERO SEQUENCE                     */}
+         {/* 1. HERO — Auto-play, no scroll hijack                */}
          {/* ==================================================== */}
-         <div className="hero-pin-wrapper relative w-full h-[100svh] overflow-hidden bg-black">
+         <div className="hero-section relative w-full h-[100svh] overflow-hidden bg-black">
 
-            {/* A. The Background Content (Reveals when Curtains dissolve) */}
-            <div className="hero-inner absolute inset-0 w-full h-full flex flex-col items-center justify-center pointer-events-none will-change-transform z-10 opacity-0 scale-95 blur-md">
-               <div className="absolute inset-0 z-0 bg-cover bg-center opacity-60 mix-blend-luminosity" style={{ backgroundImage: `url('${heroSettings.image}')` }}></div>
-               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 text-center">
-                  <h1 className="text-[12vw] md:text-[8vw] font-black tracking-tighter leading-none uppercase text-white drop-shadow-2xl" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
-                     {isArabic ? heroSettings.titleAr : heroSettings.titleEn}<br />
-                     <span className="text-transparent stroke-text" style={{ WebkitTextStroke: "2px rgba(255,255,255,1)" }}>{isArabic ? heroSettings.subAr : heroSettings.subEn}</span>
-                  </h1>
-               </div>
+            {/* Background image */}
+            <div className="hero-inner absolute inset-0 w-full h-full will-change-transform">
+               <div className="absolute inset-0 z-0 bg-cover bg-center" style={{ backgroundImage: `url('${heroSettings.image}')` }}></div>
+               <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/50 via-black/30 to-black/80"></div>
             </div>
 
-            {/* B. The Dark Curtains (Shadowed sliding doors on top z-50) */}
-            <div className="curtain-door absolute inset-0 z-50 flex pointer-events-none will-change-[opacity]">
-
-               {/* Left Curtain */}
-               <div className="curtain-left relative w-1/2 h-full bg-[#0B0B0B] flex flex-col items-end justify-center overflow-hidden shadow-[20px_0_100px_rgba(0,0,0,1)] will-change-transform">
-                  <span className="relative z-10 font-mono tracking-[0.5em] text-white/5 uppercase mr-8">Athath</span>
-               </div>
-
-               {/* Right Curtain */}
-               <div className="curtain-right relative w-1/2 h-full bg-[#0B0B0B] flex flex-col items-start justify-center overflow-hidden shadow-[-20px_0_100px_rgba(0,0,0,1)] will-change-transform">
-                  <span className="relative z-10 font-mono tracking-[0.5em] text-white/5 uppercase ml-8">Al Thiqa</span>
-               </div>
-
-               {/* Scroll Indicator */}
-               <div className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-80 pointer-events-none z-50">
-                  <div className="w-[1px] h-12 bg-gradient-to-b from-[#FF6A00] to-transparent mt-3 animate-pulse"></div>
-                  <div className="text-[10px] mt-4 uppercase tracking-[0.3em] font-bold text-[#FF6A00] animate-bounce">
-                     {isArabic ? "مرر للأسفل" : "Scroll to Reveal"}
-                  </div>
-               </div>
+            {/* Content — centered */}
+            <div className="hero-content relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
+               <span className="font-mono tracking-[0.4em] text-[#FF6A00]/70 text-xs uppercase mb-6">
+                  Athath Al Thiqa
+               </span>
+               <h1 className="text-[10vw] md:text-[7vw] font-black tracking-tighter leading-none uppercase text-white drop-shadow-2xl" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
+                  {isArabic ? heroSettings.titleAr : heroSettings.titleEn}<br />
+                  <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,1)" }}>{isArabic ? heroSettings.subAr : heroSettings.subEn}</span>
+               </h1>
             </div>
 
          </div>
@@ -205,17 +183,17 @@ export default function HomePage() {
          {/* ---------------------------------------------------- */}
          {/* 2. CATEGORIES: ALTERNATING VERTICAL SEQUENCE */}
          {/* ---------------------------------------------------- */}
-         <section className="relative w-full bg-[#0B0B0B] pb-32 border-t border-white/5 pt-32">
-            
+         <section className="relative w-full bg-[#0B0B0B] pb-32 border-t border-white/5 pt-12">
+
             {/* Cinematic Category Intro Text */}
-            <div className="cat-header-trigger relative w-full container mx-auto px-6 mb-32 flex justify-center overflow-hidden">
+            <div className="cat-header-trigger relative w-full container mx-auto px-6 mb-16 flex justify-center overflow-hidden">
                <h2 className="cat-title-text text-[15vw] md:text-[12vw] font-black uppercase text-white/5 tracking-tighter leading-none will-change-transform opacity-0" style={{ fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
                   {isArabic ? "المجموعات" : "CATÉGORIES"}
                </h2>
                <div className="cat-title-text-front absolute inset-0 flex items-center justify-center pointer-events-none opacity-0">
-                   <h2 className="text-[15vw] md:text-[12vw] font-black uppercase text-transparent stroke-text tracking-tighter leading-none" style={{ WebkitTextStroke: "1px rgba(255,106,0,0.4)", fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
-                      {isArabic ? "المجموعات" : "CATÉGORIES"}
-                   </h2>
+                  <h2 className="text-[15vw] md:text-[12vw] font-black uppercase text-transparent stroke-text tracking-tighter leading-none" style={{ WebkitTextStroke: "1px rgba(255,106,0,0.4)", fontFamily: isArabic ? "var(--font-reem-kufi)" : "var(--font-montserrat)" }}>
+                     {isArabic ? "المجموعات" : "CATÉGORIES"}
+                  </h2>
                </div>
             </div>
 
